@@ -397,51 +397,6 @@ This will return information about a particular SmartApp, using its ID which can
 *Note: This call does not require authentication.*      
 [https://graph.api.smartthings.com/api/smartapps/idHashString](https://graph.api.smartthings.com/api/smartapps/idHashString)
 
-	{
-		id: "8a9c25843e38742c013e4e1498ea26b6",
-		version: 0.9,
-		state: "LATEST_APPROVED",
-		name: "Alfred Workflow",
-		description: "This SmartApp allows you to interact with the things in your physical graph through Alfred.",
-		iconUrl: "https://s3.amazonaws.com/smartapp-icons/Partner/alfred-app.png",
-		iconX2Url: "https://s3.amazonaws.com/smartapp-icons/Partner/alfred-app@2x.png",
-		dateCreated: "2013-04-28T00:39:32Z",
-		lastUpdated: "2013-05-09T14:43:36Z",
-		preferences: {
-			sections: [
-				{
-					title: "Allow Alfred to Control These Things...",
-					input: [
-					{
-						title: "Which Switches?",
-						description: "Tap to set",
-						multiple: true,
-						required: false,
-						name: "switches",
-						type: "capability.switch"
-					},
-					{
-						title: "Which Locks?",
-						description: "Tap to set",
-						multiple: true,
-						required: false,
-						name: "locks",
-						type: "capability.lock"
-					}
-					]
-				}
-			]
-		},
-		installedCount: 32,
-		author: "SmartThings",
-		photoUrls: [ ],
-		videoUrls: [ ],
-		smartApp: {
-			id: "8a9c25843e38742c013e4e1498ea26b6"
-		},
-		mostRecentVersionId: "8a9c25843e38742c013e4e14f1b226b8"
-	}
-
 ### Your SmartApp Installations
 On the otherhand, this endpoint will tell you about the applications you have installed. This call will return some of the same information found in the above SmartApps details call but also contains some information specific to your account. It will include information such as `eventSubscriptions`, location information, and other preferences specifically set by you when you installed/configured the SmartApp.    
 [https://graph.api.smartthings.com/api/smartapps/installations/](https://graph.api.smartthings.com/api/smartapps/installations/)
