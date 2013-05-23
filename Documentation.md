@@ -1,5 +1,5 @@
 
-# SmartThings
+# SmartThings Unofficial Documentation
 
 ## JSON API Endpoints
 
