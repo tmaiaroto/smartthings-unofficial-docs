@@ -5,10 +5,10 @@
 
 First off, you need to be logged into http://graph.api.smarthings.com … Which is simple enough. You can then go on to see a list of your hubs and events, among other things, in their dashboard. However, we're after JSON responses and all of hte data you see here is available in (seemingly open) JSON responses.
 
-For the purposes of the following example responses, note that  `<idHashString>` values represent 32 character long alpha-numeric unique IDs. You will see other placeholder values as well, but the `<idHashString>` values will be useful to make other API calls. You will see another hash string placeholder value `<uuid>` which is a normal [UUID](http://en.wikipedia.org/wiki/Universally_unique_identifier).
+For the purposes of the following example responses, note that  `<idHashString>` values represent 32 character long alpha-numeric unique IDs. You will see other placeholder values as well, but the `<idHashString>` values will be useful to make other API calls. You will see another hash string placeholder value `<uuid>` which is a normal [UUID](http://en.wikipedia.org/wiki/Universally_unique_identifier). All other placeholder values are simply strings if not clearly specified.
 
 ### Authenticating
-Before you can make any of these HTTP requests you will need to be logged in. You can do that manually as explained above, but you can also with code using oauth.
+Before you can make any of these HTTP requests you will need to be logged in. You can do that manually as explained above, but you can also with code using oauth. For additional information, see the official (though incomplete) documentation: [https://docs.google.com/document/d/14F5CnjIbI8Ru4-MrjHXhnBGGQngUevVEe7H3cqoGHKA/edit?pli=1](https://docs.google.com/document/d/14F5CnjIbI8Ru4-MrjHXhnBGGQngUevVEe7H3cqoGHKA/edit?pli=1)
 
 Remember, every call that you will be making will display data relative to the account you are logged in with. You will not have permission to view certain data and you certainly can't get information about other accounts. 
 
@@ -164,6 +164,168 @@ Get the last few (currently 10) events for a hub.
 [https://graph.api.smartthings.com/api/hubs/idHashString/events](https://graph.api.smartthings.com/api/hubs/idHashString/events)
 
 *Note: The response looks just like the account events endpoint response.*
+
+### Hub Devices
+Get the devices paired with a hub (also available in the hub details response). This is a great endpoint to access in order to get the current states of devices; for example, the current temperature from a multi sensor.   
+[https://graph.api.smartthings.com/api/hubs/idHashString/devices](https://graph.api.smartthings.com/api/hubs/idHashString/devices)
+
+Example response:
+
+	[
+		{
+			id: "<idHashString>",
+			name: "SmartSense Motion",
+			hubId: "<idHashString>",
+			label: null,
+			status: "ACTIVE",
+			currentStates: [
+				{
+					name: "motion",
+					value: "inactive",
+					unit: null,
+					date: "2013-05-23T05:57:41Z",
+					unixTime: 1369288661864
+				}
+			],
+			typeId: "<uuid>",
+			deviceNetworkId: "<id>",
+			virtual: false,
+			primaryTileName: null,
+			stateOverrides: [ ],
+			permissions: "a"
+		},
+		{
+			id: "<idHashString>",
+			name: "SmartSense Multi",
+			hubId: "<idHashString>",
+			label: null,
+			status: "ACTIVE",
+			currentStates: [
+			{
+				name: "threeAxis",
+				value: "46,12,1016",
+				unit: null,
+				date: "2013-05-23T05:49:47Z",
+				unixTime: 1369288187171
+			},
+			{
+				name: "temperature",
+				value: "65",
+				unit: "F",
+				date: "2013-05-23T05:54:50Z",
+				unixTime: 1369288490264
+			},
+			{
+				name: "acceleration",
+				value: "inactive",
+				unit: null,
+				date: "2013-05-23T05:54:50Z",
+				unixTime: 1369288490264
+			},
+			{
+				name: "contact",
+				value: "closed",
+				unit: null,
+				date: "2013-05-23T05:54:50Z",
+				unixTime: 1369288490264
+			}
+		],
+		typeId: "<uuid>",
+		deviceNetworkId: "<id>",
+		virtual: false,
+		primaryTileName: "contact",
+		stateOverrides: [ ],
+		permissions: "a"
+		}
+	]
+
+### Device Details
+Get details about a specific device (given its deviceId) along with its recent events.   
+[https://graph.api.smartthings.com/api/devices/idHashString](https://graph.api.smartthings.com/api/devices/idHashString)
+
+Example response:
+
+	{
+		device: {
+			id: "<idHashString>",
+			name: "SmartSense Multi",
+			hubId: "<idHashString>",
+			label: null,
+			status: "ACTIVE",
+			currentStates: [
+				{
+					name: "temperature",
+					value: "64",
+					unit: "F",
+					date: "2013-05-23T06:04:50Z",
+					unixTime: 1369289090908
+				},
+				{
+					name: "threeAxis",
+					value: "46,12,1016",
+					unit: null,
+					date: "2013-05-23T05:49:47Z",
+					unixTime: 1369288187171
+				},
+				{
+					name: "acceleration",
+					value: "inactive",
+					unit: null,
+					date: "2013-05-23T06:04:50Z",
+					unixTime: 1369289090908
+				},
+				{
+					name: "contact",
+					value: "closed",
+					unit: null,
+					date: "2013-05-23T06:04:50Z",
+					unixTime: 1369289090908
+				}
+			],
+			typeId: "<uuid>",
+			deviceNetworkId: "<id>",
+			virtual: false,
+			primaryTileName: "contact",
+			stateOverrides: [ ],
+			permissions: "a"
+		},
+		events: [
+		{
+			id: "<uuid>",
+			hubId: "<idHashString>",
+			description: "SmartSense Multi was 64°F",
+			displayed: true,
+			linkText: "SmartSense Multi",
+			date: "2013-05-23T05:59:50.721Z",
+			unixTime: 1369288790721,
+			value: "64",
+			deviceId: "<idHashString>",
+			unit: "F",
+			name: "temperature",
+			locationId: "<idHashString>"
+		},
+		{
+			id: "<uuid>",
+			hubId: "<idHashString>",
+			description: "SmartSense Multi was active",
+			displayed: true,
+			linkText: "SmartSense Multi",
+			date: "2013-05-23T05:49:17.822Z",
+			unixTime: 1369288157822,
+			value: "active",
+			deviceId: "<idHashString>",
+			name: "acceleration",
+			locationId: "<idHashString>"
+		},
+		...
+		]
+	}
+
+### Device Events
+Get the recent events for a given device (given its deviceId).
+
+*Note: The JSON response looks just like the "events" section from the device details endpoint and currently includes the last 10 events.*    
+[https://graph.api.smartthings.com/api/devices/idHashString/events](https://graph.api.smartthings.com/api/devices/idHashString/events)
 
 ### All Locations
 Get information about your locations for all accounts.    
