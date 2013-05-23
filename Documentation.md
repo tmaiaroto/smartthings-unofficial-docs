@@ -1,8 +1,22 @@
 
 # SmartThings Unofficial Documentation
 
-## JSON API Endpoints
+Many of the endpoints (and parameters for them) documented below were discovered via trial and error methods. However, a more complete list of endpoints can be found in this [Titanium project here.](https://github.com/alanleard/ti.smart/blob/master/src/lib/smart.js) However, it should be noted that not all of those seem to work. The endpoints documented here have been tested. No promises things won't change and it should be expected that they will.
 
+## Projects
+You first need an account on [http://build.smartthings.com](http://build.smartthings.com) which is different than your account for using your device (which is used with http://graph.api.smarthings.com). Then you can go to create a project at the following URL: [http://build.smartthings.com/projects/create/](http://build.smartthings.com/projects/create/)
+
+*Tip: When creating a project, you will have the option to keep it public or private. If you're just playing around, it may be a good idea to not open it up to being discovered and the used by others.*
+
+More information here: [http://build.smartthings.com/smartthings-projects/](http://build.smartthings.com/smartthings-projects/)
+
+### Project Pages
+Your project will have its own little homepage on the SmartThings site. You're given a project blog, galleries, and others users can comment, etc. SmartThings wants to have its own social network for developers and projects and they seem to be using WordPress to get the job done.
+
+## Project Settings
+You can configure a few settings for your project. In the top left you'll see a "My Projects" menu item and from there you can access one of your projects. Go to "Dashboard" from that menu. Then on the left menu you'll see "Project Settings" and in here you can change your project name, description, image, etc. This is where you would also change the privacy setting so that you can change the app from private to public.
+
+## JSON API Endpoints
 First off, you need to be logged into http://graph.api.smarthings.com … Which is simple enough. You can then go on to see a list of your hubs and events, among other things, in their dashboard. However, we're after JSON responses and all of hte data you see here is available in (seemingly open) JSON responses.
 
 For the purposes of the following example responses, note that  `<idHashString>` values represent 32 character long alpha-numeric unique IDs. You will see other placeholder values as well, but the `<idHashString>` values will be useful to make other API calls. You will see another hash string placeholder value `<uuid>` which is a normal [UUID](http://en.wikipedia.org/wiki/Universally_unique_identifier). All other placeholder values are simply strings if not clearly specified.
@@ -345,6 +359,13 @@ Get the recent events for a given device (given its deviceId).
 `all=<boolean>`    
 `max=<number>`    
 `source=<boolean>`
+
+### Device Roles
+[https://graph.api.smartthings.com/api/devices/idHashString/roles](https://graph.api.smartthings.com/api/devices/idHashString/roles)
+
+### Device Types
+Get information about the types of installed devices. This does **not** include any events or readings from the devices. This information is used to populate the SmartThings app dashboard. For example, you will see color hex values for different temperatures which would indicate which color to show based on the current temperature.  If you were to be building your own app, you may find this information useful. It can tell you a lot about each device type. There is a good bit of information in this response.    
+[https://graph.api.smartthings.com/api/devicetypes](https://graph.api.smartthings.com/api/devicetypes)
 
 ### All Locations
 Get information about your locations for all accounts.    
