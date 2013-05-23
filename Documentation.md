@@ -40,6 +40,15 @@ Get information about locations for a specific account. Replace "idHashString" w
 Get the recent events for an account. Replace "idHashString" with your account ID string found in the **Accounts** endpoint or **Locations** endpoint.    
 [https://graph.api.smartthings.com/api/accounts/idHashString/events](https://graph.api.smartthings.com/api/accounts/idHashString/events)
 
+**Params**    
+`all=<boolean>`    
+`max=<number>`    
+`source=<boolean>`
+
+The default is to display the ten most recent displayed events. Changing this will number will return more or less events. For example: https://graph.api.smartthings.com/api/accounts/idHashString/events?max=20
+
+If `all` is true, then all events will be returned. If `source` is true, then only events not displayed back to the user will be returned. This would include some more detailed information from the sensors including if they are battery powered or not, etc.
+
 Example response:
 
 	[
@@ -162,6 +171,11 @@ Example response:
 ### Hub Events
 Get the last few (currently 10) events for a hub.    
 [https://graph.api.smartthings.com/api/hubs/idHashString/events](https://graph.api.smartthings.com/api/hubs/idHashString/events)
+
+**Params**    
+`all=<boolean>`    
+`max=<number>`    
+`source=<boolean>`
 
 *Note: The response looks just like the account events endpoint response.*
 
@@ -326,6 +340,11 @@ Get the recent events for a given device (given its deviceId).
 
 *Note: The JSON response looks just like the "events" section from the device details endpoint and currently includes the last 10 events.*    
 [https://graph.api.smartthings.com/api/devices/idHashString/events](https://graph.api.smartthings.com/api/devices/idHashString/events)
+
+**Params**    
+`all=<boolean>`    
+`max=<number>`    
+`source=<boolean>`
 
 ### All Locations
 Get information about your locations for all accounts.    
