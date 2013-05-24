@@ -4,17 +4,16 @@
 Many of the endpoints (and parameters for them) documented below were discovered via trial and error methods. However, a more complete list of endpoints can be found in this [Titanium project here.](https://github.com/alanleard/ti.smart/blob/master/src/lib/smart.js) However, it should be noted that not all of those seem to work. The endpoints documented here have been tested. No promises things won't change and it should be expected that they will.
 
 ## Projects
+Projects allow you to setup a community around what you're building for SmartThings. You are given the ability to setup blogs, galleries, and more.
+
 You first need an account on [http://build.smartthings.com](http://build.smartthings.com) which is different than your account for using your device (which is used with http://graph.api.smarthings.com). Then you can go to create a project at the following URL: [http://build.smartthings.com/projects/create/](http://build.smartthings.com/projects/create/)
 
-*Tip: When creating a project, you will have the option to keep it public or private. If you're just playing around, it may be a good idea to not open it up to being discovered and the used by others.*
+## SmartApps
+SmartApps are the actual applications/widgets which users can install to the SmartThings mobile application. They use OAuth to authenticate and allow access to the API. This allows an end-user to individually disable/control access for any SmartApp. If you're familiar with Facebook apps - this is very similar.
 
-More information here: [http://build.smartthings.com/smartthings-projects/](http://build.smartthings.com/smartthings-projects/)
+You can create smart apps here: [https://graph.api.smartthings.com/ide/apps](https://graph.api.smartthings.com/ide/apps)
 
-### Project Pages
-Your project will have its own little homepage on the SmartThings site. You're given a project blog, galleries, and others users can comment, etc. SmartThings wants to have its own social network for developers and projects and they seem to be using WordPress to get the job done.
-
-## Project Settings
-You can configure a few settings for your project. In the top left you'll see a "My Projects" menu item and from there you can access one of your projects. Go to "Dashboard" from that menu. Then on the left menu you'll see "Project Settings" and in here you can change your project name, description, image, etc. This is where you would also change the privacy setting so that you can change the app from private to public.
+*Note: You may not have access to this section if you are not registered as a developer.*
 
 ## JSON API Endpoints
 First off, you need to be logged into http://graph.api.smarthings.com … Which is simple enough. You can then go on to see a list of your hubs and events, among other things, in their dashboard. However, we're after JSON responses and all of hte data you see here is available in (seemingly open) JSON responses.
@@ -22,12 +21,12 @@ First off, you need to be logged into http://graph.api.smarthings.com … Which 
 For the purposes of the following example responses, note that  `<idHashString>` values represent 32 character long alpha-numeric unique IDs. You will see other placeholder values as well, but the `<idHashString>` values will be useful to make other API calls. You will see another hash string placeholder value `<uuid>` which is a normal [UUID](http://en.wikipedia.org/wiki/Universally_unique_identifier). All other placeholder values are simply strings if not clearly specified.
 
 ### Authenticating
-Before you can make any of these HTTP requests you will need to be logged in. You can do that manually as explained above, but you can also with code using oauth. For additional information, see the official (though incomplete) documentation: [https://docs.google.com/document/d/14F5CnjIbI8Ru4-MrjHXhnBGGQngUevVEe7H3cqoGHKA/edit?pli=1](https://docs.google.com/document/d/14F5CnjIbI8Ru4-MrjHXhnBGGQngUevVEe7H3cqoGHKA/edit?pli=1)
+Before you can make any of these HTTP requests you will need to be logged in. You can do that manually as explained above, but you can also with code using OAuth via one of your SmartApps. For additional information, see the official (under construction) documentation: [https://docs.google.com/document/d/14F5CnjIbI8Ru4-MrjHXhnBGGQngUevVEe7H3cqoGHKA/edit?pli=1](https://docs.google.com/document/d/14F5CnjIbI8Ru4-MrjHXhnBGGQngUevVEe7H3cqoGHKA/edit?pli=1)
 
-Remember, every call that you will be making will display data relative to the account you are logged in with. You will not have permission to view certain data and you certainly can't get information about other accounts. 
+Remember, every call that you will be making will display data relative to the account you are authenticated with. You will not have permission to view certain data and you certainly can't get information about other accounts.
 
 ### Accounts
-Get information about your accounts.    
+Get information about the accounts for the currently authenticated user.    
 [https://graph.api.smartthings.com/api/accounts](https://graph.api.smartthings.com/api/accounts)
 
 Example response:
@@ -96,7 +95,7 @@ Example response:
 	]
 
 ### Hubs
-Get information about your connected hubs.    
+Get information about the connected hubs.    
 [https://graph.api.smartthings.com/api/hubs](https://graph.api.smartthings.com/api/hubs)
 
 Example response:
@@ -121,7 +120,7 @@ Example response:
 	]
 
 ### Hub Details
-Get information about your hub, the connected devices, and recent events. The ten latest events appear to be displayed.    
+Get information about a hub, the connected devices, and recent events. The ten latest events appear to be displayed.    
 [https://graph.api.smartthings.com/api/hubs/idHashString](https://graph.api.smartthings.com/api/hubs/idHashString)
 
 Example response:
@@ -368,7 +367,7 @@ Get information about the types of installed devices. This does **not** include 
 [https://graph.api.smartthings.com/api/devicetypes](https://graph.api.smartthings.com/api/devicetypes)
 
 ### All Locations
-Get information about your locations for all accounts.    
+Get information about locations for all accounts.    
 [https://graph.api.smartthings.com/api/locations](https://graph.api.smartthings.com/api/locations)
 
 Example response:
@@ -418,7 +417,7 @@ This will return information about a particular SmartApp, using its ID which can
 *Note: This call does not require authentication.*      
 [https://graph.api.smartthings.com/api/smartapps/idHashString](https://graph.api.smartthings.com/api/smartapps/idHashString)
 
-### Your SmartApp Installations
-On the otherhand, this endpoint will tell you about the applications you have installed. This call will return some of the same information found in the above SmartApps details call but also contains some information specific to your account. It will include information such as `eventSubscriptions`, location information, and other preferences specifically set by you when you installed/configured the SmartApp.    
+### SmartApp Installations
+On the otherhand, this endpoint will tell you about the applications a user has installed. This call will return some of the same information found in the above SmartApps details call but also contains some information specific to your account. It will include information such as `eventSubscriptions`, location information, and other preferences specifically set by you when a user installed/configured the SmartApp.    
 [https://graph.api.smartthings.com/api/smartapps/installations/](https://graph.api.smartthings.com/api/smartapps/installations/)
 
